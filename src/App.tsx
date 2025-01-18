@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { FormEvent, useState } from "react";
+import "./App.css";
+import Inputs from "./components/Inputs.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // The base price of the good being sold (how much the merchant would like to make)
+  const [revenue, setRevenue] = useState(0);
+  const [percentTax, setPercentTax] = useState(0);
+  const [fixedTax, setFixedTax] = useState(0);
+  const [percentProcessFee, setPercentProcessFee] = useState(0);
+  const [fixedProcessFee, setfixedProcessFee] = useState(0);
+
+  const [listedPrice, setListedPrice] = useState(NaN);
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    const result =
+      (revenue + fixedTax * percentProcessFee) /
+        (1 - percentProcessFee - percentProcessFee * percentTax) +
+      fixedProcessFee;
+    setListedPrice(result);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="bg-gray-100">
+      <Inputs
+        revenue={revenue}
+        setRevenue={setRevenue}
+        percentTax={percentTax}
+        setPercentTax={setPercentTax}
+        fixedTax={fixedTax}
+        setFixedTax={setFixedTax}
+        percentProcessFee={percentProcessFee}
+        setPercentProcessFee={setPercentProcessFee}
+        fixedProcessFee={fixedProcessFee}
+        setFixedProcessFee={setfixedProcessFee}
+        handleSubmit={handleSubmit}
+      />
+      <h1>{"$" + listedPrice.toFixed(2) || "Missing or invalid inputs"}</h1>
+    </div>
+  );
 }
 
-export default App
+export default App;
