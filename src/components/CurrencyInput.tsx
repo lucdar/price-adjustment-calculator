@@ -10,7 +10,7 @@ function CurrencyInput(props: Input) {
 
   return (
     <>
-      <label className="mt-3 block text-2xl font-medium" htmlFor={props.label}>
+      <label className="mt-3 block text-left text-2xl font-medium" htmlFor={props.label}>
         {props.label}
       </label>
       <NumericFormat

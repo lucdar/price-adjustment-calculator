@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import "./App.css";
 import Inputs from "./components/Inputs.tsx";
 
@@ -17,11 +17,12 @@ export interface Input {
 
 function App() {
   // The base price of the good being sold (how much the merchant would like to make)
-  const [revenue, setRevenue] = useState(0);
-  const [percentTax, setPercentTax] = useState(0);
-  const [fixedTax, setFixedTax] = useState(0);
-  const [percentProcessFee, setPercentProcessFee] = useState(0);
-  const [fixedProcessFee, setFixedProcessFee] = useState(0);
+  const [revenue, setRevenue] = useState(20);
+  const [percentTax, setPercentTax] = useState(9.75);
+  const [fixedTax, setFixedTax] = useState(0.25);
+  const [percentProcessFee, setPercentProcessFee] = useState(2.75);
+  const [fixedProcessFee, setFixedProcessFee] = useState(0.05);
+
   const inputArray: Input[] = [
     {
       id: "revenue",
@@ -60,22 +61,24 @@ function App() {
     },
   ];
 
-  const [listedPrice, setListedPrice] = useState(NaN);
-
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    const listedPrice =
-      (revenue + fixedTax * percentProcessFee) /
-        (1 - percentProcessFee - percentProcessFee * percentTax) +
-      fixedProcessFee;
-    setListedPrice(listedPrice);
-  }
+  const listedPrice =
+    (revenue + fixedProcessFee + (fixedTax * percentProcessFee) / 100) /
+    (1 - percentProcessFee / 100 - (percentProcessFee / 100) * percentTax);
 
   return (
-    <div className="bg-gray-100">
-      <Inputs inputArray={inputArray} handleSubmit={handleSubmit} />
-      <h1>{listedPrice ? "$" + listedPrice.toFixed(2) : "Missing or invalid inputs"}</h1>
-    </div>
+    <>
+      <div className="rounded-2xl bg-gray-100">
+        <Inputs inputArray={inputArray} />
+      </div>
+      <div>
+        <p className="text-left">
+          <span className="mb-4 text-left text-2xl font-bold">Adjusted price: </span>
+          <span className="text-xl">
+            {listedPrice ? "$" + listedPrice.toFixed(2) : "Missing or invalid inputs"}
+          </span>
+        </p>
+      </div>
+    </>
   );
 }
 
