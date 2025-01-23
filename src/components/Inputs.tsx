@@ -1,24 +1,26 @@
-import { FormEvent } from "react";
-import { Input } from "../App";
-import NumberInput from "./NumberInput";
+import { Input, InputType } from "../App";
+import PercentInput from "./PercentInput";
+import CurrencyInput from "./CurrencyInput";
 
 export type InputsProps = {
   inputArray: Input[];
-  handleSubmit: (e: FormEvent) => void;
 };
 
 function Inputs(props: InputsProps) {
   return (
-    <form
-      autoComplete="off"
-      onSubmit={props.handleSubmit}
-      className="mb-6 flex flex-col gap-4 p-5"
-    >
-      {props.inputArray.map((input) => {
-        return <NumberInput key={input.id} {...input} />;
-      })}
-      <input type="submit" hidden />
-    </form>
+    <>
+      <h1 className="em">Inputs</h1>
+      <form autoComplete="off" className="mb-6 flex flex-col gap-4 p-5">
+        {props.inputArray.map((input) => {
+          switch (input.inputType) {
+            case InputType.Percent:
+              return <PercentInput key={input.id} {...input} />;
+            case InputType.Currency:
+              return <CurrencyInput key={input.id} {...input} />;
+          }
+        })}
+      </form>
+    </>
   );
 }
 
