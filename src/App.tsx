@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import "./App.css";
 import Inputs from "./components/Inputs.tsx";
+import PriceBreakdown from "./components/PriceBreakdown.tsx"; 
 
 export enum InputType {
   Percent,
@@ -62,21 +63,23 @@ function App() {
   ];
 
   const listedPrice =
-    (revenue + fixedProcessFee + (fixedTax * percentProcessFee) / 100) /
-    (1 - percentProcessFee / 100 - (percentProcessFee / 100) * percentTax);
+    (revenue + fixedProcessFee + (fixedTax * (percentProcessFee / 100))) /
+    (1 - percentProcessFee / 100 - (percentProcessFee / 100) * (percentTax / 100));
+
+  const realTaxes = percentTax / 100 * (listedPrice) + fixedTax;
+  const realProcessing = percentProcessFee / 100 * (listedPrice + realTaxes) + fixedProcessFee;
+
+  const realRevenue = listedPrice - realProcessing;
 
   return (
     <>
       <div className="rounded-2xl bg-gray-100">
         <Inputs inputArray={inputArray} />
       </div>
-      <div>
-        <p className="text-left">
-          <span className="mb-4 text-left text-2xl font-bold">Adjusted price: </span>
-          <span className="text-xl">
-            {listedPrice ? "$" + listedPrice.toFixed(2) : "Missing or invalid inputs"}
-          </span>
-        </p>
+      <div className="rounded-2xl bg-gray-100">
+        {listedPrice ?
+          <PriceBreakdown {...{listedPrice, percentTax, fixedTax, percentProcessFee, fixedProcessFee, realRevenue}} /> :
+          <p>Missing or invalid inputs</p>}
       </div>
     </>
   );
