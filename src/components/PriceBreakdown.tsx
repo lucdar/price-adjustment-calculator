@@ -36,7 +36,7 @@ function PriceBreakdown({ listedPrice, percentTax, fixedTax, percentProcessFee, 
       <p className="text-left">
         <span className="mb-4 text-xl font-bold">Total Processing: </span>
         <span className="text-l">
-          ${fixedProcessFee} + ${amountSubmitted} * {percentProcessFee / 100}% = ${totalProcessFee}
+          ${fixedProcessFee} + ${amountSubmitted} * {percentProcessFee}% = ${totalProcessFee}
         </span>
       </p>
       <p className="text-left">
