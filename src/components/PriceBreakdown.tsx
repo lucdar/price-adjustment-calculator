@@ -9,10 +9,10 @@ export type PriceBreakdownProps = {
 }
 
 function PriceBreakdown({ listedPrice, percentTax, fixedTax, percentProcessFee, fixedProcessFee }: PriceBreakdownProps) {
-  const totalTax = (fixedTax + percentTax / 100 * listedPrice).toFixed(2);
-  const amountSubmitted = (listedPrice + Number(totalTax)).toFixed(2);
-  const totalProcessFee = (fixedProcessFee + percentProcessFee / 100 * Number(amountSubmitted)).toFixed(2);
-  const computedRevenue = (Number(amountSubmitted) - Number(totalTax) - Number(totalProcessFee)).toFixed(2);
+  const totalTax = +(fixedTax + percentTax / 100 * listedPrice).toFixed(2);
+  const amountSubmitted = +(listedPrice + totalTax).toFixed(2);
+  const totalProcessFee = +(fixedProcessFee + percentProcessFee / 100 * amountSubmitted).toFixed(2);
+  const computedRevenue = +(amountSubmitted - totalTax - totalProcessFee).toFixed(2);
 
   return (
     <div>

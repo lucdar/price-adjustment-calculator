@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import "./App.css";
 import Inputs from "./components/Inputs.tsx";
-import PriceBreakdown, { PriceBreakdownProps } from "./components/PriceBreakdown.tsx"; 
+import PriceBreakdown, { PriceBreakdownProps } from "./components/PriceBreakdown.tsx";
 
 export enum InputType {
   Percent,
@@ -68,13 +68,12 @@ function App() {
     },
   ];
 
-
-
   let priceBreakdownProps: PriceBreakdownProps | null = null;
-  if (inputArray.every(({state}) => state !== null)) {
-    const listedPrice =
-      (revenue! + fixedProcessFee! + (fixedTax! * (percentProcessFee! / 100))) /
+  if (inputArray.every(({ state }) => state !== null)) {
+    const listedPrice = +(
+      (revenue! + fixedProcessFee! + fixedTax! * (percentProcessFee! / 100)) /
       (1 - percentProcessFee! / 100 - (percentProcessFee! / 100) * (percentTax! / 100))
+    ).toFixed(2);
     if (isFinite(listedPrice) && listedPrice > 0) {
       priceBreakdownProps = {
         listedPrice: listedPrice,
@@ -82,7 +81,8 @@ function App() {
         fixedTax: fixedTax!,
         percentProcessFee: percentProcessFee!,
         fixedProcessFee: fixedProcessFee!,
-    }};
+      };
+    }
   }
 
   return (
@@ -91,9 +91,11 @@ function App() {
         <Inputs inputArray={inputArray} />
       </div>
       <div className="rounded-2xl bg-gray-100">
-        {priceBreakdownProps ?
-          <PriceBreakdown {...priceBreakdownProps} /> :
-          <p>Missing or invalid inputs</p>}
+        {priceBreakdownProps ? (
+          <PriceBreakdown {...priceBreakdownProps} />
+        ) : (
+          <p>Missing or invalid inputs</p>
+        )}
       </div>
     </>
   );
