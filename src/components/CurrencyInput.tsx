@@ -3,9 +3,7 @@ import { NumberFormatValues, NumericFormat } from "react-number-format";
 
 function CurrencyInput(props: Input) {
   function handleValueChange({ floatValue }: NumberFormatValues) {
-    if (floatValue) {
-      props.setState(floatValue);
-    }
+    props.setState(floatValue !== undefined ? floatValue : null)
   }
 
   return (
@@ -21,6 +19,7 @@ function CurrencyInput(props: Input) {
         id={props.label}
         value={props.state}
         onValueChange={handleValueChange}
+        placeholder={props.placeholder}
       />
     </>
   );
