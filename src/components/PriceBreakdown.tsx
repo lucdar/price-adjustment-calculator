@@ -1,3 +1,4 @@
+import PriceBreakdownLine from "./PriceBreakdownLine";
 
 export type PriceBreakdownProps = {
   listedPrice: number,
@@ -15,36 +16,23 @@ function PriceBreakdown({ listedPrice, percentTax, fixedTax, percentProcessFee, 
 
   return (
     <div>
-      <p className="text-left">
-        <span className="mb-4 text-2xl font-bold">Adjusted Price: </span>
-        <span className="text-xl">
-          {"$" + listedPrice.toFixed(2)}
-        </span>
-      </p>
-      <p className="text-left">
-        <span className="mb-4 text-xl font-bold">Total Taxes: </span>
-        <span className="text-l">
-          ${fixedTax} + ${listedPrice.toFixed(2)} * {percentTax}% = ${totalTax}
-        </span> 
-      </p>
-      <p className="text-left">
-        <span className="mb-4 text-xl font-bold">Amount Billed: </span>
-        <span className="text-l">
-          ${listedPrice.toFixed(2)} + ${totalTax} = ${amountSubmitted}
-        </span>
-      </p>
-      <p className="text-left">
-        <span className="mb-4 text-xl font-bold">Total Processing: </span>
-        <span className="text-l">
-          ${fixedProcessFee} + ${amountSubmitted} * {percentProcessFee}% = ${totalProcessFee}
-        </span>
-      </p>
-      <p className="text-left">
-        <span className="mb-4 text-xl font-bold">Revenue: </span>
-        <span className="text-l">
-          ${amountSubmitted} - ${totalTax} - ${totalProcessFee} = ${computedRevenue}
-        </span>
-      </p>
+      <PriceBreakdownLine label="Adjusted Price" content={"$" + listedPrice.toFixed(2)} />
+      <PriceBreakdownLine
+        label="Total Taxes"
+        content={`$${fixedTax} + $${listedPrice.toFixed(2)} * ${percentTax}% = $${totalTax}`}
+      />
+      <PriceBreakdownLine
+        label="Amount Billed"
+        content={`$${listedPrice.toFixed(2)} + $${totalTax} = $${amountSubmitted}`}
+      />
+      <PriceBreakdownLine
+        label="Total Processing"
+        content={`$${fixedProcessFee} + $${amountSubmitted} * $${percentProcessFee}% = $${totalProcessFee}`}
+      />
+      <PriceBreakdownLine
+        label="Revenue"
+        content={`$${amountSubmitted} - $${totalTax} - $${totalProcessFee} = $${computedRevenue}`}
+      />
     </div>
   )
 }
