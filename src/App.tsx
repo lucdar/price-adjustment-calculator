@@ -87,10 +87,9 @@ function App() {
 
   return (
     <>
-      <div className="rounded-2xl bg-gray-100">
-        <Inputs inputArray={inputArray} />
-      </div>
-      <div className="rounded-2xl bg-gray-100">
+      <h1 className="text-left text-2xl p-2 mb-3">Price Adjustment Calculator</h1>
+      <Inputs inputArray={inputArray} />
+      <div className="rounded-2xl bg-gray-100 flex flex-col gap-6 p-5 mt-5">
         {priceBreakdownProps ? (
           <PriceBreakdown {...priceBreakdownProps} />
         ) : (

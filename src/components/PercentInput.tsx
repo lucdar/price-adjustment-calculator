@@ -1,4 +1,5 @@
 import { Input } from "../App";
+import { inputClassName, labelClassName } from "./Inputs"; 
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 
 function PercentInput(props: Input) {
@@ -8,11 +9,11 @@ function PercentInput(props: Input) {
 
   return (
     <>
-      <label className="mt-3 block text-left text-2xl font-medium" htmlFor={props.label}>
+      <label className={labelClassName} htmlFor={props.label}>
         {props.label}
       </label>
       <NumericFormat
-        className="block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+        className={inputClassName}
         suffix="%"
         id={props.label}
         value={props.state}

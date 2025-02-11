@@ -1,18 +1,19 @@
 import { Input } from "../App";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
+import { inputClassName, labelClassName } from "./Inputs";
 
 function CurrencyInput(props: Input) {
   function handleValueChange({ floatValue }: NumberFormatValues) {
-    props.setState(floatValue !== undefined ? floatValue : null)
+    props.setState(floatValue !== undefined ? floatValue : null);
   }
 
   return (
     <>
-      <label className="mt-3 block text-left text-2xl font-medium" htmlFor={props.label}>
+      <label className={labelClassName} htmlFor={props.label}>
         {props.label}
       </label>
       <NumericFormat
-        className="block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+        className={inputClassName}
         prefix="$"
         decimalScale={2}
         fixedDecimalScale={true}

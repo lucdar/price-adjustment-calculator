@@ -27,7 +27,7 @@ function PriceBreakdown({ listedPrice, percentTax, fixedTax, percentProcessFee, 
       />
       <PriceBreakdownLine
         label="Total Processing"
-        content={`$${fixedProcessFee} + $${amountSubmitted} * $${percentProcessFee}% = $${totalProcessFee}`}
+        content={`$${fixedProcessFee} + $${amountSubmitted} * ${percentProcessFee}% = $${totalProcessFee}`}
       />
       <PriceBreakdownLine
         label="Revenue"
