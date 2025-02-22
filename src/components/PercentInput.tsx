@@ -1,10 +1,10 @@
 import { Input } from "../App";
-import { inputClassName, labelClassName } from "./Inputs"; 
+import { inputClassName, labelClassName } from "./Inputs";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 
 function PercentInput(props: Input) {
   function handleValueChange({ floatValue }: NumberFormatValues) {
-    props.setState(floatValue !== undefined ? floatValue : null)
+    props.setState(floatValue !== undefined ? floatValue : null);
   }
 
   return (

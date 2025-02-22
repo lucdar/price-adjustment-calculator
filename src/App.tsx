@@ -3,19 +3,23 @@ import "./App.css";
 import Inputs from "./components/Inputs.tsx";
 import PriceBreakdown, { PriceBreakdownProps } from "./components/PriceBreakdown.tsx";
 
-export enum InputType {
-  Percent,
-  Currency,
-}
+export type InputType = "Percent" | "Currency";
 
 export interface Input {
-  id: string;
   label: string;
   inputType: InputType;
   state: number | null;
   setState: Dispatch<SetStateAction<number | null>>;
   placeholder: string;
 }
+
+export type InputObject = {
+  revenue: Input;
+  percentTax: Input;
+  fixedTax: Input;
+  percentProcessFee: Input;
+  fixedProcessFee: Input;
+};
 
 function App() {
   // The base price of the good being sold (how much the merchant would like to make)
@@ -25,51 +29,46 @@ function App() {
   const [percentProcessFee, setPercentProcessFee] = useState<number | null>(null);
   const [fixedProcessFee, setFixedProcessFee] = useState<number | null>(null);
 
-  const inputArray: Input[] = [
-    {
-      id: "revenue",
+  const inputObject: InputObject = {
+    revenue: {
       label: "Desired Revenue",
-      inputType: InputType.Currency,
+      inputType: "Currency",
       state: revenue,
       setState: setRevenue,
       placeholder: "e.g. $20.00",
     },
-    {
-      id: "percentTax",
+    percentTax: {
       label: "Percent Tax",
-      inputType: InputType.Percent,
+      inputType: "Percent",
       state: percentTax,
       setState: setPercentTax,
       placeholder: "e.g. 9.75%",
     },
-    {
-      id: "fixedTax",
+    fixedTax: {
       label: "Fixed Tax",
-      inputType: InputType.Currency,
+      inputType: "Currency",
       state: fixedTax,
       setState: setFixedTax,
       placeholder: "e.g. $0.25",
     },
-    {
-      id: "percentProcessFee",
+    percentProcessFee: {
       label: "Percent Processing Fee",
-      inputType: InputType.Percent,
+      inputType: "Percent",
       state: percentProcessFee,
       setState: setPercentProcessFee,
       placeholder: "e.g. 2.75%",
     },
-    {
-      id: "fixedProcessFee",
+    fixedProcessFee: {
       label: "Fixed Processing Fee",
-      inputType: InputType.Currency,
+      inputType: "Currency",
       state: fixedProcessFee,
       setState: setFixedProcessFee,
       placeholder: "e.g. $0.05",
     },
-  ];
+  };
 
   let priceBreakdownProps: PriceBreakdownProps | null = null;
-  if (inputArray.every(({ state }) => state !== null)) {
+  if (Object.values(inputObject).every(({ state }) => state !== null)) {
     const listedPrice = +(
       (revenue! + fixedProcessFee! + fixedTax! * (percentProcessFee! / 100)) /
       (1 - percentProcessFee! / 100 - (percentProcessFee! / 100) * (percentTax! / 100))
@@ -87,9 +86,9 @@ function App() {
 
   return (
     <>
-      <h1 className="text-left text-2xl p-2 mb-3">Price Adjustment Calculator</h1>
-      <Inputs inputArray={inputArray} />
-      <div className="rounded-2xl bg-gray-100 flex flex-col gap-6 p-5 mt-5">
+      <h1 className="mb-3 p-2 text-left text-2xl">Price Adjustment Calculator</h1>
+      <Inputs {...inputObject} />
+      <div className="mt-5 flex flex-col gap-6 rounded-2xl bg-gray-100 p-5">
         {priceBreakdownProps ? (
           <PriceBreakdown {...priceBreakdownProps} />
         ) : (
