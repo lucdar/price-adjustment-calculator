@@ -22,11 +22,15 @@ export type InputObject = {
 };
 
 function App() {
-  // The base price of the good being sold (how much the merchant would like to make)
+  // The amount made by the seller after deducting taxes and processing fees
   const [revenue, setRevenue] = useState<number | null>(null);
+  // Percent-based tax applied to the good being sold
   const [percentTax, setPercentTax] = useState<number | null>(null);
+  // Fixed tax applied to the good being sold (e.g. bottle tax)
   const [fixedTax, setFixedTax] = useState<number | null>(null);
+  // Percent-based fee from the payment processor
   const [percentProcessFee, setPercentProcessFee] = useState<number | null>(null);
+  // Fixed fee from the payment processor
   const [fixedProcessFee, setFixedProcessFee] = useState<number | null>(null);
 
   const inputObject: InputObject = {
@@ -38,7 +42,7 @@ function App() {
       placeholder: "e.g. $20.00",
     },
     percentTax: {
-      label: "Percent Tax",
+      label: "Percent-Based Tax",
       inputType: "Percent",
       state: percentTax,
       setState: setPercentTax,
@@ -52,7 +56,7 @@ function App() {
       placeholder: "e.g. $0.25",
     },
     percentProcessFee: {
-      label: "Percent Processing Fee",
+      label: "Percent-Based Processing Fee",
       inputType: "Percent",
       state: percentProcessFee,
       setState: setPercentProcessFee,
@@ -68,11 +72,14 @@ function App() {
   };
 
   let priceBreakdownProps: PriceBreakdownProps | null = null;
+  // Only assign priceBreakdownProps if each input has a non-null value
   if (Object.values(inputObject).every(({ state }) => state !== null)) {
+    // TODO: link derivation of this equation
     const listedPrice = +(
       (revenue! + fixedProcessFee! + fixedTax! * (percentProcessFee! / 100)) /
       (1 - percentProcessFee! / 100 - (percentProcessFee! / 100) * (percentTax! / 100))
     ).toFixed(2);
+    // Unrealistic inputs can lead non-finite or negative numbers
     if (isFinite(listedPrice) && listedPrice > 0) {
       priceBreakdownProps = {
         listedPrice: listedPrice,
@@ -88,13 +95,16 @@ function App() {
     <>
       <h1 className="mb-3 p-2 text-left text-2xl">Price Adjustment Calculator</h1>
       <Inputs {...inputObject} />
-      <div className="mt-5 flex flex-col gap-6 rounded-2xl bg-gray-100 p-5">
-        {priceBreakdownProps ? (
-          <PriceBreakdown {...priceBreakdownProps} />
-        ) : (
-          <p>Missing or invalid inputs</p>
-        )}
-      </div>
+      {priceBreakdownProps ? (
+        <PriceBreakdown {...priceBreakdownProps} />
+      ) : (
+        <PriceBreakdown />
+      )}
+      <p className="p-3 text-sm text-gray-700">
+        This calculator is for informational purposes only. I do not guarantee accuracy
+        and am not responsible for any decisions made based on its results. Use at your
+        own risk.
+      </p>
     </>
   );
 }
