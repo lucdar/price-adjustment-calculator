@@ -2,23 +2,23 @@ import { Input } from "../App";
 import { inputClassName, labelClassName } from "./Inputs";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 
-function PercentInput(props: Input) {
+function PercentInput({ setState, state, label, placeholder }: Input) {
   function handleValueChange({ floatValue }: NumberFormatValues) {
-    props.setState(floatValue !== undefined ? floatValue : null);
+    setState(floatValue !== undefined ? floatValue : null);
   }
 
   return (
     <>
-      <label className={labelClassName} htmlFor={props.label}>
-        {props.label}
+      <label className={labelClassName} htmlFor={label}>
+        {label}
       </label>
       <NumericFormat
         className={inputClassName}
         suffix="%"
-        id={props.label}
-        value={props.state}
+        id={label}
+        value={state}
         onValueChange={handleValueChange}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
       />
     </>
   );

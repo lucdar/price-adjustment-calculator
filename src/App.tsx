@@ -73,7 +73,8 @@ function App() {
 
   let priceBreakdownProps: PriceBreakdownProps | null = null;
   // Only assign priceBreakdownProps if each input has a non-null value
-  if (Object.values(inputObject).every(({ state }) => state !== null)) {
+  if (Object.values(inputObject).every(({ state }) => state != null)) {
+    // Lots of ! here, but the above line guarantees that each
     // TODO: link derivation of this equation
     const listedPrice = +(
       (revenue! + fixedProcessFee! + fixedTax! * (percentProcessFee! / 100)) /
@@ -95,12 +96,14 @@ function App() {
     <>
       <h1 className="mb-3 p-2 text-left text-2xl">Price Adjustment Calculator</h1>
       <Inputs {...inputObject} />
-      {priceBreakdownProps ? (
+      {priceBreakdownProps != null ? (
         <PriceBreakdown {...priceBreakdownProps} />
       ) : (
-        <PriceBreakdown />
+        <div className="mt-5 flex flex-col gap-6 rounded-2xl bg-amber-100 p-5">
+          <p>Missing or invalid values</p>
+        </div>
       )}
-      <p className="p-3 text-sm text-gray-700">
+      <p className="p-3 text-sm text-gray-400">
         This calculator is for informational purposes only. I do not guarantee accuracy
         and am not responsible for any decisions made based on its results. Use at your
         own risk.

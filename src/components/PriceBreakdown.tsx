@@ -8,18 +8,13 @@ export type PriceBreakdownProps = {
   fixedProcessFee: number;
 };
 
-function PriceBreakdown(props: PriceBreakdownProps | {}) {
-  if (Object.keys(props).length === 0) {
-    return (
-      <div className="mt-5 flex flex-col gap-6 rounded-2xl bg-amber-100 p-5">
-        <p>Missing or invalid values</p>
-      </div>
-    );
-  }
-
-  const { listedPrice, percentTax, fixedTax, percentProcessFee, fixedProcessFee } =
-    props as PriceBreakdownProps;
-
+function PriceBreakdown({
+  listedPrice,
+  percentTax,
+  fixedTax,
+  percentProcessFee,
+  fixedProcessFee,
+}: PriceBreakdownProps) {
   const roundCents = (x: number) => +x.toFixed(2);
   const totalTax = roundCents(fixedTax + (percentTax / 100) * listedPrice);
   const amountSubmitted = roundCents(listedPrice + totalTax);
@@ -87,9 +82,9 @@ function FormatPrice({ price, color }: FormatPriceProps) {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-  let spanClass = `font-mono px-0.5`;
-  if (color) {
-    spanClass += `bg-${color}-200 underline rounded-md decoration-${color}-300 decoration-2`;
+  let spanClass = `font-mono px-1`;
+  if (color != null) {
+    spanClass += ` bg-${color}-200 underline rounded-md decoration-${color}-300 decoration-2`;
   }
   return <span className={spanClass}>{priceString}</span>;
 }
@@ -99,11 +94,11 @@ type PriceBreakdownLineProps = {
   children: ReactNode;
 };
 
-function PriceBreakdownLine(props: PriceBreakdownLineProps) {
+function PriceBreakdownLine({ label, children }: PriceBreakdownLineProps) {
   return (
     <p className="text-left">
-      <span className="mb-4 text-xl font-bold">{props.label}: </span>
-      <span className="text-l inline-block font-mono">{props.children}</span>
+      <span className="mb-4 text-xl font-bold">{label}: </span>
+      <span className="text-l inline-block font-mono">{children}</span>
     </p>
   );
 }
