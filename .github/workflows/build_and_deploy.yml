@@ -31,5 +31,8 @@ jobs:
           git remote set-url origin https://git:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
           git add -A
-          git commit -m "workflow deployment"
-          git push
+          if git commit -m "workflow deployment"; then
+            git push
+          else 
+            echo "No changes to commit."
+          fi
