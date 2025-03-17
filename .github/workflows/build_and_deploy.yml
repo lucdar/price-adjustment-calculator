@@ -17,6 +17,7 @@ jobs:
       - name: build
         run: |
           cd src/
+          bun install
           bun run build
           cd ../
       - name: deploy
