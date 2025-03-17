@@ -1,0 +1,35 @@
+on: push
+name: gh-pages
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fetch main branch
+        uses: actions/checkout@v4
+        with:
+          path: src
+      - name: fetch gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: build
+      - uses: oven-sh/setup-bun@v2
+      - name: build
+        run: |
+          cd src/
+          bun run build
+          cd ../
+      - name: deploy
+        run: |
+          rm -rf build/*
+          cp -r src/build/* ./build/
+          cd build/
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://git:{{ secrets.GITHUB_TOKEN }}@github.com/{{ github.repository }}.git
+
+          git add -A
+          git commit -m "workflow deployment"
+          git push
+          
