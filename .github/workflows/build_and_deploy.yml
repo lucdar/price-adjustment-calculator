@@ -11,16 +11,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - name: build
         run: |
-          cd src/
-          
-          pwd
-          ls -la
-          
+          cd src/          
           bun install
           bun run build
           cd ../
-          
-          pwd
       - name: fetch gh-pages branch
         uses: actions/checkout@v4
         with:
@@ -28,11 +22,8 @@ jobs:
           path: build
       - name: deploy
         run: |
-          pwd
-          ls -la
-          
           rm -rf build/*
-          cp -r src/build/* ./build/
+          cp -r src/dist/* build/
           cd build/
 
           git config user.name "github-actions[bot]"
@@ -42,4 +33,3 @@ jobs:
           git add -A
           git commit -m "workflow deployment"
           git push
-          
