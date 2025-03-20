@@ -24,10 +24,12 @@ function PriceBreakdown({
   const computedRevenue = roundCents(amountSubmitted - totalTax - totalProcessFee);
 
   const listedPriceSpan = <FormatPrice price={listedPrice} color="amber" />;
+  const fixedTaxSpan = <FormatPrice price={fixedTax} color={null} />;
   const totalTaxSpan = <FormatPrice price={totalTax} color="red" />;
+  const amountSubmittedSpan = <FormatPrice price={amountSubmitted} color="purple" />;
+  const fixedProcessFeeSpan = <FormatPrice price={fixedProcessFee} color={null} />;
   const totalProcessFeeSpan = <FormatPrice price={totalProcessFee} color="blue" />;
   const computedRevenueSpan = <FormatPrice price={computedRevenue} color="green" />;
-  const amountSubmittedSpan = <FormatPrice price={amountSubmitted} color="purple" />;
 
   return (
     <>
@@ -47,13 +49,13 @@ function PriceBreakdown({
         </p>
         <hr className="my-2 border-gray-800"></hr>
         <PriceBreakdownLine label="Total Taxes">
-          ({listedPriceSpan} × {percentTax}%) + ${fixedTax} = {totalTaxSpan}
+          ({listedPriceSpan} × {percentTax}%) + ${fixedTaxSpan} = {totalTaxSpan}
         </PriceBreakdownLine>
         <PriceBreakdownLine label="Amount Submitted">
           {listedPriceSpan} + {totalTaxSpan} = {amountSubmittedSpan}
         </PriceBreakdownLine>
         <PriceBreakdownLine label="Total Processing">
-          ({amountSubmittedSpan} × {percentProcessFee}%) + ${fixedProcessFee} ={" "}
+          ({amountSubmittedSpan} × {percentProcessFee}%) + ${fixedProcessFeeSpan} ={" "}
           {totalProcessFeeSpan}
         </PriceBreakdownLine>
         <PriceBreakdownLine label="Revenue">
