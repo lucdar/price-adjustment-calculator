@@ -49,13 +49,13 @@ function PriceBreakdown({
         </p>
         <hr className="my-2 border-gray-800"></hr>
         <PriceBreakdownLine label="Total Taxes">
-          ({listedPriceSpan} × {percentTax}%) + ${fixedTaxSpan} = {totalTaxSpan}
+          ({listedPriceSpan} × {percentTax}%) + {fixedTaxSpan} = {totalTaxSpan}
         </PriceBreakdownLine>
         <PriceBreakdownLine label="Amount Submitted">
           {listedPriceSpan} + {totalTaxSpan} = {amountSubmittedSpan}
         </PriceBreakdownLine>
         <PriceBreakdownLine label="Total Processing">
-          ({amountSubmittedSpan} × {percentProcessFee}%) + ${fixedProcessFeeSpan} ={" "}
+          ({amountSubmittedSpan} × {percentProcessFee}%) + {fixedProcessFeeSpan} ={" "}
           {totalProcessFeeSpan}
         </PriceBreakdownLine>
         <PriceBreakdownLine label="Revenue">
