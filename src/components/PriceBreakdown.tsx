@@ -78,7 +78,7 @@ function FormatPrice({ price, color }: FormatPriceProps) {
   // Text Decorations: decoration-red-300 decoration-green-300 decoration-blue-300
   //                   decoration-amber-300 decoration-purple-300
   // (This is low-key insane)
-  let priceString =
+  const priceString =
     "$" +
     price.toLocaleString("en-US", {
       minimumFractionDigits: 2,
