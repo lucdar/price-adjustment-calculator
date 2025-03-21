@@ -53,7 +53,7 @@ mod tests {
         const ITERATIONS: usize = 10000000;
         const PERCENT_TAX_RANGE: Range<f64> = 0.01_f64..0.25_f64;
         const PERCENT_PF_RANGE: Range<f64> = 0.01_f64..0.25f64;
-        const REVENUE_RANGE: Range<f64> = 10000000000_f64..100000000000_f64;
+        const REVENUE_RANGE: Range<f64> = 100000000_f64..1000000000_f64;
 
         let mut rng = rand::rng();
 
