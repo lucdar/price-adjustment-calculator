@@ -1,4 +1,6 @@
-on: push
+# Disabled because it's being deployed on lucdar/laclark.me
+
+# on: push
 name: gh-pages
 jobs:
   build-and-deploy:
