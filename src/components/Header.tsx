@@ -7,7 +7,7 @@ const Header: React.FC = () => {
     { name: "Source", href: "https://github.com/lucdar/price-adjustment-calculator" },
   ];
   return (
-    <div className="mb-3 p-2">
+    <div className="p-y2 mb-3">
       <h1 className="text-left text-2xl font-bold">Price Adjustment Calculator</h1>
       <p className="text-left">
         by{" "}
