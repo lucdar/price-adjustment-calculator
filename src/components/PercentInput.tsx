@@ -1,8 +1,9 @@
+import React from "react";
 import { Input } from "./Calculator";
 import { inputClassName, labelClassName } from "./Inputs";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 
-function PercentInput({ setState, state, label, placeholder }: Input) {
+const PercentInput: React.FC<Input> = ({ setState, state, label, placeholder }) => {
   function handleValueChange({ floatValue }: NumberFormatValues) {
     setState(floatValue !== undefined ? floatValue : null);
   }
@@ -22,6 +23,6 @@ function PercentInput({ setState, state, label, placeholder }: Input) {
       />
     </>
   );
-}
+};
 
 export default PercentInput;

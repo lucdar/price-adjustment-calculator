@@ -1,8 +1,9 @@
+import React from "react";
 import { Input } from "./Calculator";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 import { inputClassName, labelClassName } from "./Inputs";
 
-function CurrencyInput({ setState, state, label, placeholder }: Input) {
+const CurrencyInput: React.FC<Input> = ({ setState, state, label, placeholder }) => {
   function handleValueChange({ floatValue }: NumberFormatValues) {
     setState(floatValue !== undefined ? floatValue : null);
   }
@@ -23,6 +24,6 @@ function CurrencyInput({ setState, state, label, placeholder }: Input) {
       />
     </>
   );
-}
+};
 
 export default CurrencyInput;

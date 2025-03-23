@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 export type PriceBreakdownProps = {
   listedPrice: number;
@@ -8,13 +8,13 @@ export type PriceBreakdownProps = {
   fixedProcessFee: number;
 };
 
-function PriceBreakdown({
+const PriceBreakdown: React.FC<PriceBreakdownProps> = ({
   listedPrice,
   percentTax,
   fixedTax,
   percentProcessFee,
   fixedProcessFee,
-}: PriceBreakdownProps) {
+}) => {
   const roundCents = (x: number) => +x.toFixed(2);
   const totalTax = roundCents(fixedTax + (percentTax / 100) * listedPrice);
   const amountSubmitted = roundCents(listedPrice + totalTax);
@@ -65,7 +65,7 @@ function PriceBreakdown({
       </div>
     </>
   );
-}
+};
 
 interface FormatPriceProps {
   price: number;

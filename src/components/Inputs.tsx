@@ -1,19 +1,20 @@
 import { InputObject } from "./Calculator";
 import PercentInput from "./PercentInput";
 import CurrencyInput from "./CurrencyInput";
+import React from "react";
 
 export const labelClassName = "block text-left text-xl font-medium";
 export const inputClassName =
   "block rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500";
 export type InputsProps = InputObject;
 
-function Inputs({
+const Inputs: React.FC<InputsProps> = ({
   revenue,
   percentTax,
   fixedTax,
   percentProcessFee,
   fixedProcessFee,
-}: InputsProps) {
+}) => {
   return (
     <form autoComplete="off" className="flex flex-col gap-4">
       <div className="flex flex-col gap-4 rounded-2xl bg-green-100 p-4">
@@ -29,6 +30,6 @@ function Inputs({
       </div>
     </form>
   );
-}
+};
 
 export default Inputs;
