@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import "./App.css";
 import Inputs from "./components/Inputs.tsx";
 import PriceBreakdown, { PriceBreakdownProps } from "./components/PriceBreakdown.tsx";
+import Header from "./components/Header.tsx";
 
 export type InputType = "Percent" | "Currency";
 
@@ -94,7 +95,7 @@ function App() {
 
   return (
     <>
-      <h1 className="mb-3 p-2 text-left text-2xl">Price Adjustment Calculator</h1>
+      <Header />
       <Inputs {...inputObject} />
       {priceBreakdownProps != null ? (
         <PriceBreakdown {...priceBreakdownProps} />
