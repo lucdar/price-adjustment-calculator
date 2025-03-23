@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import Inputs from "./Inputs.tsx";
-import PriceBreakdown, { PriceBreakdownProps } from "./PriceBreakdown.tsx";
+import Inputs from "./Inputs";
+import PriceBreakdown, { PriceBreakdownProps } from "./PriceBreakdown";
 
 export type InputType = "Percent" | "Currency";
 

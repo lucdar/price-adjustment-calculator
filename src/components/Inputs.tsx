@@ -1,4 +1,4 @@
-import { InputObject } from "../App";
+import { InputObject } from "./Calculator";
 import PercentInput from "./PercentInput";
 import CurrencyInput from "./CurrencyInput";
 

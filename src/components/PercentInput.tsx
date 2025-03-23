@@ -1,4 +1,4 @@
-import { Input } from "../App";
+import { Input } from "./Calculator";
 import { inputClassName, labelClassName } from "./Inputs";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 
