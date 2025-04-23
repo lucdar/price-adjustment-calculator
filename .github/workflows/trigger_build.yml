@@ -17,10 +17,12 @@ jobs:
       - name: Commit build artifacts to dist branch
         run: |
           cd dist
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git add .
           git commit -m "Updates" # TODO: expressive commit message
-          git push origin dist
+          git push origin dist --force
   deploy:
     runs-on: ubuntu-latest
     steps:

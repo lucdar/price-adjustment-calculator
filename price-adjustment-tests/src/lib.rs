@@ -50,19 +50,21 @@ mod tests {
 
     #[test]
     fn test_inverse_functions() {
-        const ITERATIONS: usize = 10000000;
+        const ITERATIONS: usize = 10_000_000;
+        const REVENUE_RANGE: Range<f64> = 1_f64..1_000_000_000_000_f64;
         const PERCENT_TAX_RANGE: Range<f64> = 0.01_f64..0.25_f64;
+        const FIXED_TAX_RANGE: Range<f64> = 0_f64..20_f64;
         const PERCENT_PF_RANGE: Range<f64> = 0.01_f64..0.25f64;
-        const REVENUE_RANGE: Range<f64> = 100000000_f64..1000000000_f64;
+        const FIXED_PF_RANGE: Range<f64> = 0_f64..20_f64;
 
         let mut rng = rand::rng();
 
         for _ in 0..ITERATIONS {
             let params = FeeParameters {
-                percent_tax: round_cents(rng.random_range(PERCENT_TAX_RANGE)),
-                fixed_tax: 0.07_f64,
-                percent_pf: round_cents(rng.random_range(PERCENT_PF_RANGE)),
-                fixed_pf: 0.09_f64,
+                percent_tax: rng.random_range(PERCENT_TAX_RANGE),
+                fixed_tax: round_cents(rng.random_range(FIXED_TAX_RANGE)),
+                percent_pf: rng.random_range(PERCENT_PF_RANGE),
+                fixed_pf: round_cents(rng.random_range(FIXED_PF_RANGE)),
             };
             let desired_revenue = round_cents(rng.random_range(REVENUE_RANGE));
             let listed_price = round_cents(calculate_listed_price(desired_revenue, &params));
